@@ -1,0 +1,15 @@
+country,city,landmark
+1) order id
+2) cuat name
+date
+status
+amt
+total qty
+vendor name
+action
+
+
+pending-yello
+decline-red
+sucess-green
+processing blue

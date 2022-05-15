@@ -1,0 +1,50 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Childcategory extends Model
+{
+    protected $fillable = ['subcategory_id','name','slug','photo','meta_title','meta_keyword','meta_description'];
+    public $timestamps = false;
+
+    public function subcategory()
+    {
+    	return $this->belongsTo('App\Models\Subcategory')->withDefault(function ($data) {
+			foreach($data->getFillable() as $dt){
+				$data[$dt] = __('Deleted');
+			}
+		});
+    }
+
+    public function products()
+    {
+		return $this->hasMany('App\Models\Product')->where('status', 1)->where('sum_stock','!=','');        
+    }
+	public function sproducts()
+    {
+		return $this->hasMany('App\Models\Product')->where('status', 1)->where('sal_status',1)->where('sum_stock','!=','');
+        
+    }
+	public function bproducts()
+    {
+		return $this->hasMany('App\Models\Product')->where('status', 1)->where('minPrice','<',1000)->where('sum_stock','!=','');        
+    }
+	
+	public function vproducts()
+    {
+		$slug='Anicha';
+		$string = str_replace('-',' ', $slug);
+        $vendor = User::where('shop_name','=',$string)->firstOrFail();		
+		return $this->hasMany('App\Models\Product')->where('status', 1)->where('sum_stock','!=','');
+    }
+    public function setSlugAttribute($value)
+    {
+        $this->attributes['slug'] = str_replace(' ', '-', $value);
+    }
+
+    public function attributes() {
+        return $this->morphMany('App\Models\Attribute', 'attributable');
+    }
+}

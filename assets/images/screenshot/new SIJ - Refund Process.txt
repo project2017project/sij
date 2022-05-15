@@ -1,0 +1,11 @@
+Refund Process - Out Of Stock
+
+ click - Create Refund and need to fill all the details
+...check the order in refunds and then click on the order and click on refund online.
+
+..then check in the order details what is the statu (It should be refunded)
+
+
+
+
+realted products
